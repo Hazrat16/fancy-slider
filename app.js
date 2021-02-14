@@ -35,7 +35,14 @@ const showImages = (images) => {
 
 }
 
-
+document.getElementById('search').addEventListener("keypress", (event) => {
+  // event.preventDefault();
+  console.log(event.key);
+  if (event.key === 'Enter') {
+    document.getElementById("search-btn").click();
+    console.log(event.target.value);
+  }
+})
 
 let slideIndex = 0;
 let count = 0;
@@ -83,15 +90,6 @@ const createSlider = () => {
     sliderContainer.appendChild(item)
   })
 
-
-  document.getElementById('search').addEventListener("keypress", (event) => {
-    event.preventDefault();
-    console.log(event.key);
-    if (event.key === 'Enter') {
-      document.getElementById("search-btn").click();
-      console.log(event.target.value);
-    }
-  })
 
   const slideShowDurationHandle = (duration) => {
     timer = setInterval(function () {
