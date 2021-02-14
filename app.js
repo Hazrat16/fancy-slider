@@ -38,17 +38,20 @@ const showImages = (images) => {
 
 
 let slideIndex = 0;
+let count = 0;
 const selectItem = (event, img) => {
   let element = event.target;
   element.classList.toggle('added');
- 
-  // let item = sliders.indexOf(img);
-  // if (item === -1) {
-  //   sliders.push(img);
-  // } else {
-  //   alert('Hey, Already added !')
-  //   sliders.(img);
-  // }
+
+  let item = sliders.indexOf(img);
+  if (item === -1) {
+    sliders.push(img);
+  }
+  else {
+    sliders.splice(item, 1);
+    // alert('Hey, Already added !')
+  }
+  console.log(item);
 }
 var timer
 const createSlider = () => {
@@ -79,11 +82,40 @@ const createSlider = () => {
     alt="">`;
     sliderContainer.appendChild(item)
   })
-  changeSlide(0)
-  timer = setInterval(function () {
-    slideIndex++;
-    changeSlide(slideIndex);
-  }, duration);
+
+
+  document.getElementById('search').addEventListener("keypress", (event) => {
+    event.preventDefault();
+    console.log(event.key);
+    if (event.key === 'Enter') {
+      document.getElementById("search-btn").click();
+      console.log(event.target.value);
+    }
+  })
+
+  const slideShowDurationHandle = (duration) => {
+    timer = setInterval(function () {
+      slideIndex++;
+      changeSlide(slideIndex);
+    }, duration)
+  }
+
+  if (duration > 1000) {
+    changeSlide(0)
+    slideShowDurationHandle(duration);
+    // timer = setInterval(function () {
+    //   slideIndex++;
+    //   changeSlide(slideIndex);
+    // }, duration);
+  }
+  else {
+    changeSlide(0)
+    slideShowDurationHandle(1000);
+    // timer = setInterval(function () {
+    //   slideIndex++;
+    //   changeSlide(slideIndex);
+    // }, 1000);
+  }
 }
 
 // change slider index 
@@ -123,3 +155,12 @@ searchBtn.addEventListener('click', function () {
 sliderBtn.addEventListener('click', function () {
   createSlider()
 })
+
+// const toggleSpinner = () => {
+//   const spinner = document.getElementById('loading-spinner').classList;
+//   //const gallery = document.querySelector('.gallery').classList;
+//   const imagesArea = document.querySelector('.images').classList;
+//   spinner.toggle('d-none');
+//   imagesArea.toggle('d-none');
+//   //console.log(spinner);
+// };
