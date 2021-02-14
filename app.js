@@ -14,7 +14,9 @@ let sliders = [];
 const KEY = '15674931-a9d714b6e9d654524df198e00&q';
 
 const getImages = (query) => {
-  fetch(`https://pixabay.com/api/?key=${KEY}=${query}&image_type=photo&pretty=true`)
+  const url = `https://pixabay.com/api/?key=${KEY}=${query}&image_type=photo&pretty=true`;
+  toggleSpinner();
+  fetch(url)
     .then(response => response.json())
     .then(data => showImages(data.hits))
     .catch(err => console.log(err))
@@ -40,7 +42,6 @@ document.getElementById('search').addEventListener("keypress", (event) => {
   console.log(event.key);
   if (event.key === 'Enter') {
     document.getElementById("search-btn").click();
-    console.log(event.target.value);
   }
 })
 
@@ -58,7 +59,6 @@ const selectItem = (event, img) => {
     sliders.splice(item, 1);
     // alert('Hey, Already added !')
   }
-  console.log(sliders.length);
   document.getElementById('selectedPhoto').innerText = sliders.length;
 }
 var timer
@@ -89,6 +89,7 @@ const createSlider = () => {
     src="${slide}"
     alt="">`;
     sliderContainer.appendChild(item)
+    toggleSpinner();
   })
 
 
@@ -102,14 +103,9 @@ const createSlider = () => {
   if (duration >= 1000) {
     changeSlide(0)
     slideShowDurationHandle(duration);
-    // timer = setInterval(function () {
-    //   slideIndex++;
-    //   changeSlide(slideIndex);
-    // }, duration);
   }
   else {
     changeSlide(0)
-    // slideShowDurationHandle(1000);
    document.getElementById("negativeTime").innerText = "You have to put a valid time otherwise you can't get the sliders[put a value greater than 1000 ms]."
     document.getElementById('sliders').style.display = 'none';
   }
@@ -152,12 +148,8 @@ searchBtn.addEventListener('click', function () {
 sliderBtn.addEventListener('click', function () {
   createSlider()
 })
-
-// const toggleSpinner = () => {
-//   const spinner = document.getElementById('loading-spinner').classList;
-//   //const gallery = document.querySelector('.gallery').classList;
-//   const imagesArea = document.querySelector('.images').classList;
-//   spinner.toggle('d-none');
-//   imagesArea.toggle('d-none');
-//   //console.log(spinner);
-// };
+// spinner-toggle
+const toggleSpinner = () =>{
+  const spinner = document.getElementById('loading-spinner');
+  spinner.classList.toggle('d-none');
+}
