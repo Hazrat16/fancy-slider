@@ -106,7 +106,7 @@ const createSlider = () => {
   }
   else {
     changeSlide(0)
-   document.getElementById("negativeTime").innerText = "You have to put a valid time otherwise you can't get the sliders[put a value greater than 1000 ms]."
+   document.getElementById("negativeTime").innerText = "You have to put a valid time otherwise you can't get the sliders[put a value greater than or equal 1000 ms]."
     document.getElementById('sliders').style.display = 'none';
   }
 }
