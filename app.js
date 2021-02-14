@@ -58,7 +58,8 @@ const selectItem = (event, img) => {
     sliders.splice(item, 1);
     // alert('Hey, Already added !')
   }
-  console.log(item);
+  console.log(sliders.length);
+  document.getElementById('selectedPhoto').innerText = sliders.length;
 }
 var timer
 const createSlider = () => {
@@ -98,7 +99,7 @@ const createSlider = () => {
     }, duration)
   }
 
-  if (duration > 1000) {
+  if (duration >= 1000) {
     changeSlide(0)
     slideShowDurationHandle(duration);
     // timer = setInterval(function () {
@@ -108,11 +109,9 @@ const createSlider = () => {
   }
   else {
     changeSlide(0)
-    slideShowDurationHandle(1000);
-    // timer = setInterval(function () {
-    //   slideIndex++;
-    //   changeSlide(slideIndex);
-    // }, 1000);
+    // slideShowDurationHandle(1000);
+   document.getElementById("negativeTime").innerText = "You have to put a valid time otherwise you can't get the sliders[put a value greater than 1000 ms]."
+    document.getElementById('sliders').style.display = 'none';
   }
 }
 
